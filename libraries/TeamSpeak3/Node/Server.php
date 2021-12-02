@@ -419,6 +419,7 @@ class TeamSpeak3_Node_Server extends TeamSpeak3_Node_Abstract
     return $this->execute("channelclientpermlist", array("cid" => $cid, "cldbid" => $cldbid, $permsid ? "-permsid" : null))->toAssocArray($permsid ? "permsid" : "permid");
   }
 
+
   /**
    * Adds a set of specified permissions to a client in a specific channel. Multiple permissions can be added by
    * providing the two parameters of each permission.
@@ -730,6 +731,11 @@ class TeamSpeak3_Node_Server extends TeamSpeak3_Node_Abstract
   public function clientFindDb($pattern, $uid = FALSE)
   {
     return array_keys($this->execute("clientdbfind", array("pattern" => $pattern, ($uid) ? "-uid" : null, "-details"))->toAssocArray("cldbid"));
+  }
+
+  public function clientFindDBID($cluid)
+  {
+    return $this->execute("clientgetdbidfromuid", array("cluid" => $cluid))->toList();  
   }
 
   /**
